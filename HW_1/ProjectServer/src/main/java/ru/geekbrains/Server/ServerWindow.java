@@ -1,4 +1,4 @@
-package ru.geekbrains;
+package ru.geekbrains.Server;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,8 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ServerWindow extends JFrame {
-    private static final int POS_X = 500;
-    private static final int POS_Y = 500;
+    private static final int POS_X = 100;
+    private static final int POS_Y = 100;
     private static final int WIDTH = 500;
     private static final int HEIGHT = 500;
 
@@ -16,7 +16,7 @@ public class ServerWindow extends JFrame {
     private final JTextArea log = new JTextArea();
     private boolean isServerWorking;
 
-    ServerWindow(){
+    public ServerWindow(){
         isServerWorking = false;
         btnStop.addActionListener(new ActionListener() {
             @Override
