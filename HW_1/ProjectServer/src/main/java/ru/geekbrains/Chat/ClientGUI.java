@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ClientGUI extends JFrame {
 
@@ -44,7 +46,7 @@ public class ClientGUI extends JFrame {
         areaLog.setLineWrap(true);
         areaLog.setWrapStyleWord(true);
         areaLog.setEditable(false);
-        areaLog.setBackground(new Color(247, 245, 166) );
+        areaLog.setBackground(new Color(247, 245, 166));
 
         panelTop.add(fieldIP);
         panelTop.add(fieldPort);
@@ -97,9 +99,14 @@ public class ClientGUI extends JFrame {
         setVisible(true);
     }
 
-    public void addMassageToLogArea(String msg) {
-        areaLog.append(msg + "\n");
+    public void addMassageToLog(String msg) {
+        // Форматируем строку msg в красивый вид
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        String formattedMessage = "[" + timeFormat.format(new Date()) + "] " + msg + "\n";
+
+
+        areaLog.append(formattedMessage);
+        areaLog.setCaretPosition(areaLog.getDocument().getLength());
+        logger.put(msg);
     }
-
-
 }
