@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ServerWindow extends JFrame {
+
     private static final int POS_X = 100;
     private static final int POS_Y = 100;
     private static final int WIDTH = 500;
@@ -17,19 +18,20 @@ public class ServerWindow extends JFrame {
     private boolean isServerWorking;
 
     public ServerWindow(){
+
         isServerWorking = false;
         btnStop.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 isServerWorking = false;
-                System.out.println("Server stopped " + isServerWorking + "\n");
+                log.append("Server stopped " + isServerWorking + "\n");
             }
         });
         btnStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 isServerWorking = true;
-                System.out.println("Server started " + isServerWorking + "\n");
+                log.append("Server started " + isServerWorking + "\n");
             }
         });
 

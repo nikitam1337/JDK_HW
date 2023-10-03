@@ -2,17 +2,21 @@ package ru.geekbrains.Chat;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class ClientGUI extends JFrame {
 
+    Controller controller;
+
     //# region private final
-    private static final int POS_X = 700;
-    private static final int POS_Y = 500;
+    private static final int POS_X = 300;
+    private static final int POS_Y = 300;
     private static final int WIDTH = 500;
     private static final int HEIGHT = 500;
-    private final JPanel panelTop = new JPanel(new GridLayout(2,3));
+    private final JPanel panelTop = new JPanel(new GridLayout(2, 3));
     private final JPanel panelBottom = new JPanel(new BorderLayout());
 
     private final JButton btnLogin = new JButton("Login");
@@ -21,14 +25,15 @@ public class ClientGUI extends JFrame {
     private final JTextField fieldLogin = new JTextField("Login");
     private final JTextField fieldPassword = new JPasswordField("Password");
     private final JTextField fieldIP = new JTextField("IP Adders");
-    private final JTextField fieldPort= new JTextField("Port");
-    private final JTextField fieldMessage= new JTextField();
+    private final JTextField fieldPort = new JTextField("Port");
+    private final JTextField fieldMessage = new JTextField();
 
     private final JTextArea areaLog = new JTextArea();
     //# endregion
 
 
-    public ClientGUI(Controller controller){
+    public ClientGUI(Controller controller) {
+        this.controller = controller;
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(POS_X, POS_Y, WIDTH, HEIGHT);
@@ -39,6 +44,7 @@ public class ClientGUI extends JFrame {
         areaLog.setLineWrap(true);
         areaLog.setWrapStyleWord(true);
         areaLog.setEditable(false);
+        areaLog.setBackground(new Color(247, 245, 166) );
 
         panelTop.add(fieldIP);
         panelTop.add(fieldPort);
@@ -54,6 +60,16 @@ public class ClientGUI extends JFrame {
         add(new JScrollPane(areaLog));
         add(panelBottom, BorderLayout.SOUTH);
 
+        btnSend.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (fieldMessage.getText() != null && !fieldMessage.getText().isEmpty()) {
+                    String msg = fieldMessage.getText();
+                    controller.sendMessage(msg);
+                    fieldMessage.setText("");
+                }
+            }
+        });
 
         fieldMessage.addKeyListener(new KeyListener() {
             @Override
@@ -63,10 +79,12 @@ public class ClientGUI extends JFrame {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER){
-                    String msg = fieldMessage.getText();
-                    controller.sendMessage(msg);
-                    fieldMessage.setText("");
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    if (fieldMessage.getText() != null && !fieldMessage.getText().isEmpty()) {
+                        String msg = fieldMessage.getText();
+                        controller.sendMessage(msg);
+                        fieldMessage.setText("");
+                    }
                 }
             }
 
@@ -79,8 +97,9 @@ public class ClientGUI extends JFrame {
         setVisible(true);
     }
 
-
-
+    public void addMassageToLogArea(String msg) {
+        areaLog.append(msg + "\n");
+    }
 
 
 }

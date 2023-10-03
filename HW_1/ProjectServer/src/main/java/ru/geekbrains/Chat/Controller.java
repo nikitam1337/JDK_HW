@@ -1,17 +1,16 @@
 package ru.geekbrains.Chat;
 
 public class Controller {
-
-    String message;
+    ClientGUI windowChat;
 
     public Controller() {
-        ClientGUI windowChat = new ClientGUI(this);
+        windowChat = new ClientGUI(this);
 
     }
-
 
     public void sendMessage(String textMessage) {
-        // каким-то образом изменить поле areaLog через метод .append
+        windowChat.addMassageToLogArea(textMessage);
     }
+
 }
-}
+
