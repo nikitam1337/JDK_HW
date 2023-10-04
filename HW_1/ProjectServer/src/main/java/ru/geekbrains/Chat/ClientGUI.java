@@ -1,5 +1,7 @@
 package ru.geekbrains.Chat;
 
+import ru.geekbrains.Logger;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,6 +14,7 @@ import java.util.Date;
 public class ClientGUI extends JFrame {
 
     Controller controller;
+    Logger logger;
 
     //# region private final
     private static final int POS_X = 300;
@@ -34,8 +37,10 @@ public class ClientGUI extends JFrame {
     //# endregion
 
 
-    public ClientGUI(Controller controller) {
+    public ClientGUI(Controller controller, Logger logger) {
         this.controller = controller;
+        this.logger = logger;
+
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(POS_X, POS_Y, WIDTH, HEIGHT);
@@ -89,7 +94,6 @@ public class ClientGUI extends JFrame {
                     }
                 }
             }
-
             @Override
             public void keyReleased(KeyEvent e) {
 
@@ -104,9 +108,8 @@ public class ClientGUI extends JFrame {
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         String formattedMessage = "[" + timeFormat.format(new Date()) + "] " + msg + "\n";
 
-
         areaLog.append(formattedMessage);
         areaLog.setCaretPosition(areaLog.getDocument().getLength());
-        logger.put(msg);
+        logger.saveLogToFile(msg);
     }
 }
