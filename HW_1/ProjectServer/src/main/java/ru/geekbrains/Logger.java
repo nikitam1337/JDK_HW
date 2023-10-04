@@ -7,6 +7,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.nio.charset.StandardCharsets;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 
 public class Logger {
     private final String logFilePath;
@@ -17,7 +21,7 @@ public class Logger {
     }
 
     /**
-     *
+     * Сохранение сообщения в файл логов
      * @param message строка для сохранения в файл Логов
      */
     public void saveLogToFile(String message) {
@@ -39,4 +43,23 @@ public class Logger {
             System.out.println("Ошибка ввода-вывода при записи в файл лога: " + e.getMessage());
         }
     }
+
+    // Получает текст из лог-файла
+    public String getLogFromFile() {
+        try {
+            Path path = Path.of(logFilePath);
+
+            if (Files.exists(path)) {
+                try (Stream<String> lines = Files.lines(path, StandardCharsets.UTF_8)) {
+                    return lines.collect(Collectors.joining("\n"));
+                }
+            } else {
+                return "";
+            }
+        } catch (IOException e) {
+            System.out.println("I/O error when reading the log file: " + e.getMessage());
+            return "";
+        }
+    }
+
 }

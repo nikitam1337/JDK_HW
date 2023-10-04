@@ -41,7 +41,6 @@ public class ClientGUI extends JFrame {
         this.controller = controller;
         this.logger = logger;
 
-
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(POS_X, POS_Y, WIDTH, HEIGHT);
         setResizable(false);
@@ -66,6 +65,16 @@ public class ClientGUI extends JFrame {
         add(panelTop, BorderLayout.NORTH);
         add(new JScrollPane(areaLog));
         add(panelBottom, BorderLayout.SOUTH);
+
+        //# region Обработчики нажатий и действий с полями и кнопками:
+        btnLogin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // подгружаем старые логи
+                areaLog.append(logger.getLogFromFile() + "\n");
+                areaLog.setCaretPosition(areaLog.getDocument().getLength());
+            }
+        });
 
         btnSend.addActionListener(new ActionListener() {
             @Override
@@ -94,11 +103,13 @@ public class ClientGUI extends JFrame {
                     }
                 }
             }
+
             @Override
             public void keyReleased(KeyEvent e) {
 
             }
         });
+        //# endregion
 
         setVisible(true);
     }
@@ -108,6 +119,7 @@ public class ClientGUI extends JFrame {
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         String formattedMessage = "[" + timeFormat.format(new Date()) + "] " + msg + "\n";
 
+        // Отправляем сообщение в окно чата и в лог-файл сразу.
         areaLog.append(formattedMessage);
         areaLog.setCaretPosition(areaLog.getDocument().getLength());
         logger.saveLogToFile(msg);
