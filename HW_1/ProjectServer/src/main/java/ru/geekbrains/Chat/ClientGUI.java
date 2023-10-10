@@ -70,9 +70,10 @@ public class ClientGUI extends JFrame {
         btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // подгружаем старые логи
+                // подгружаем старые логи и убираем панель подключения
                 areaLog.append(logger.getLogFromFile() + "\n");
                 areaLog.setCaretPosition(areaLog.getDocument().getLength());
+
             }
         });
 
