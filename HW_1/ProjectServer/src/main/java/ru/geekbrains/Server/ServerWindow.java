@@ -17,34 +17,52 @@ public class ServerWindow extends JFrame {
     private final JTextArea log = new JTextArea();
     private boolean isServerWorking;
 
-    public ServerWindow(){
+    public ServerWindow() {
 
         isServerWorking = false;
-        btnStop.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                isServerWorking = false;
-                log.append("Server stopped " + isServerWorking + "\n");
-            }
-        });
-        btnStart.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                isServerWorking = true;
-                log.append("Server started " + isServerWorking + "\n");
-            }
-        });
+
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(POS_X, POS_Y, WIDTH, HEIGHT);
         setResizable(false);
         setTitle("Chat server");
         setAlwaysOnTop(true);
-        JPanel panBottom = new JPanel(new GridLayout(1,2));
+
+        log.setLineWrap(true);
+        log.setWrapStyleWord(true);
+        log.setEditable(false);
+
+
+        JPanel panBottom = new JPanel(new GridLayout(1, 2));
         panBottom.add(btnStart);
         panBottom.add(btnStop);
+
         add(panBottom, BorderLayout.SOUTH);
         add(log);
+
+        btnStop.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (isServerWorking) {
+                    isServerWorking = false;
+                    log.append("Server stopped " + isServerWorking + "\n");
+                } else {
+                    log.append("Сервер не запущен" + "\n");
+                }
+
+            }
+        });
+        btnStart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!isServerWorking) {
+                    isServerWorking = true;
+                    log.append("Server started " + isServerWorking + "\n");
+                } else {
+                    log.append("Сервер уже был запущен" + "\n");
+                }
+            }
+        });
 
 
         setVisible(true);

@@ -66,6 +66,8 @@ public class ClientGUI extends JFrame {
         add(new JScrollPane(areaLog));
         add(panelBottom, BorderLayout.SOUTH);
 
+        panelBottom.setVisible(false);
+
         //# region Обработчики нажатий и действий с полями и кнопками:
         btnLogin.addActionListener(new ActionListener() {
             @Override
@@ -73,6 +75,8 @@ public class ClientGUI extends JFrame {
                 // подгружаем старые логи и убираем панель подключения
                 areaLog.append(logger.getLogFromFile() + "\n");
                 areaLog.setCaretPosition(areaLog.getDocument().getLength());
+                panelTop.setVisible(false);
+                panelBottom.setVisible(true);
 
             }
         });
