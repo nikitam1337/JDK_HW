@@ -1,5 +1,6 @@
 package ru.geekbrains.client;
 
+import ru.geekbrains.server.Server;
 import ru.geekbrains.server.ServerWindow;
 
 import javax.swing.*;
@@ -18,13 +19,13 @@ public class ClientGUI extends JFrame implements ClientView{
 
     private Client client;
 
-    public ClientGUI(ServerWindow server){
+    public ClientGUI(Server server){
         this.client = new Client(this, server);
 
         setSize(WIDTH, HEIGHT);
         setResizable(false);
         setTitle("Chat client");
-        setLocation(server.getX() - 500, server.getY());
+//        setLocation(server.getX() - 500, server.getY());
 
         createPanel();
 

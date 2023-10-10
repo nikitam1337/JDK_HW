@@ -1,16 +1,17 @@
 package ru.geekbrains.client;
 
+import ru.geekbrains.server.Server;
 import ru.geekbrains.server.ServerWindow;
 
 public class Client {
     private String name;
     private ClientView clientView;
-    private ServerWindow server;
+    private Server server;
     private boolean connected;
 
-    public Client(ClientView clientView, ServerWindow serverWindow) {
+    public Client(ClientView clientView, Server server) {
         this.clientView = clientView;
-        this.server = serverWindow;
+        this.server = server;
     }
 
     public boolean connectToServer(String name){
@@ -48,7 +49,7 @@ public class Client {
         if (connected) {
             connected = false;
             clientView.disconnectFromServer();
-            server.disconnectUser(this);
+//            server.disconnectUser(this);
             printText("Вы были отключены от сервера!");
         }
     }
@@ -57,7 +58,7 @@ public class Client {
         return name;
     }
 
-    private void printText(String text){
+    public void printText(String text){
         clientView.showMessage(text);
     }
 }

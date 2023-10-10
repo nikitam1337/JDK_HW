@@ -1,7 +1,14 @@
 package ru.geekbrains;
 
+
+import ru.geekbrains.client.ClientGUI;
+import ru.geekbrains.server.Server;
+import ru.geekbrains.server.ServerWindow;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Server server = new Server();
+        new ClientGUI(server);
+        new ClientGUI(server);
     }
 }
