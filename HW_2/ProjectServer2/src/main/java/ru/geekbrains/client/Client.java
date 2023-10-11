@@ -3,6 +3,9 @@ package ru.geekbrains.client;
 import ru.geekbrains.server.Server;
 import ru.geekbrains.server.ServerWindow;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Client {
     private String name;
     private ClientView clientView;
@@ -14,13 +17,14 @@ public class Client {
         this.server = server;
     }
 
-    public boolean connectToServer(String name){
+    public boolean connectToServer(String name) {
         this.name = name;
-        if (server.connectUser(this)){
+        if (server.connectUser(this)) {
             printText("Вы успешно подключились!\n");
             connected = true;
             String log = server.getHistory();
-            if (log != null){
+            if (log != null) {
+                printText("История чата:");
                 printText(log);
             }
             return true;
@@ -31,25 +35,27 @@ public class Client {
     }
 
     //мы посылаем
-    public void sendMessage(String message){
+    public void sendMessage(String message) {
         if (connected) {
             if (!message.isEmpty()) {
-                server.sendMessage(name + ": " + message);
+                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                String formattedMessage = name + " [" + timeFormat.format(new Date()) + "] " + ": " + message;
+                server.sendMessage(formattedMessage);
             }
         } else {
             printText("Нет подключения к серверу");
         }
     }
+
     //нам посылают
-    public void serverAnswer(String answer){
+    public void serverAnswer(String answer) {
         printText(answer);
     }
 
-    public void disconnect(){
+    public void disconnect() { //TODO Доделать метод
         if (connected) {
             connected = false;
-            clientView.disconnectFromServer();
-//            server.disconnectUser(this);
+            server.disconnectUser(this);
             printText("Вы были отключены от сервера!");
         }
     }
@@ -58,7 +64,7 @@ public class Client {
         return name;
     }
 
-    public void printText(String text){
+    public void printText(String text) {
         clientView.showMessage(text);
     }
 }

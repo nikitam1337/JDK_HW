@@ -51,8 +51,8 @@ public class Server {
         // TODO Доделать метод отключения клиентов от сервера
         if (client != null) {
             client.disconnect();
-        }
-        clientList.remove(client);
+            clientList.remove(client);
+            }
 
     }
 
@@ -73,7 +73,7 @@ public class Server {
 
     private void answerAll(String text) {
         for (Client client : clientList) {
-            client.printText(text);
+            client.serverAnswer(text);
         }
     }
 

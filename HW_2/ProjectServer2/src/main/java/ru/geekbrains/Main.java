@@ -7,7 +7,9 @@ import ru.geekbrains.server.ServerWindow;
 
 public class Main {
     public static void main(String[] args) {
-        Server server = new Server();
+        ServerWindow serverWindow = new ServerWindow();
+        Server server = serverWindow.returnServer();
+
         new ClientGUI(server);
         new ClientGUI(server);
     }

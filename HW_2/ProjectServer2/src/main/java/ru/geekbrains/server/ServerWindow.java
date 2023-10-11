@@ -18,7 +18,6 @@ public class ServerWindow extends JFrame implements ServerView {
     private Server server;
 
     public ServerWindow() {
-
         this.server = new Server(this);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -30,6 +29,10 @@ public class ServerWindow extends JFrame implements ServerView {
         createPanel();
 
         setVisible(true);
+    }
+
+    public Server returnServer(){
+        return server;
     }
 
     private void createPanel() {

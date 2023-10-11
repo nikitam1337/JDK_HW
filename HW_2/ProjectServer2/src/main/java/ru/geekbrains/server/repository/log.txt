@@ -1,0 +1,11 @@
+Ivan Ivanovich: Привет
+Ivan Ivanovich: Как дела?
+Ivan Ivanovich: Привет всем
+Ivan Ivanovich: Hello!
+Nikita: Hi!
+Ivan Ivanovich: 123
+Nikita: Всё раотает
+Дима[12:46:29] : Проверка нового формата строк
+
+Ivan Ivanovich[12:46:39] : Ещё одна проверка
+

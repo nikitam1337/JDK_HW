@@ -25,7 +25,6 @@ public class ClientGUI extends JFrame implements ClientView{
         setSize(WIDTH, HEIGHT);
         setResizable(false);
         setTitle("Chat client");
-//        setLocation(server.getX() - 500, server.getY());
 
         createPanel();
 
