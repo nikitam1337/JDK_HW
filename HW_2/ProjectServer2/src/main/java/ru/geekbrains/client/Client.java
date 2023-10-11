@@ -52,13 +52,21 @@ public class Client {
         printText(answer);
     }
 
-    public void disconnect() { //TODO Доделать метод
+    public void disconnect() {
         if (connected) {
             connected = false;
             server.disconnectUser(this);
             printText("Вы были отключены от сервера!");
         }
     }
+
+    public void disconnectServerDown() {
+        if (connected) {
+            connected = false;
+            printText("Вы были отключены от сервера!");
+        }
+    }
+
 
     public String getName() {
         return name;

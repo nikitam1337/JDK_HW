@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
+import java.util.List;
 
 public class ServerWindow extends JFrame implements ServerView {
     public static final int WIDTH = 400;
@@ -31,13 +33,14 @@ public class ServerWindow extends JFrame implements ServerView {
         setVisible(true);
     }
 
-    public Server returnServer(){
+    public Server returnServer() {
         return server;
     }
 
     private void createPanel() {
         log = new JTextArea();
-        add(log);
+        log.setEditable(false);
+        add(new JScrollPane(log));
         add(createButtons(), BorderLayout.SOUTH);
     }
 
@@ -51,9 +54,11 @@ public class ServerWindow extends JFrame implements ServerView {
             public void actionPerformed(ActionEvent e) {
                 if (server.getStatusServer()) {
                     showMessage("Сервер уже был запущен");
+                    showAllClients();
                 } else {
                     server.startServer();
                     showMessage("Сервер запущен!");
+                    showAllClients();
                 }
             }
         });
@@ -65,10 +70,11 @@ public class ServerWindow extends JFrame implements ServerView {
                     showMessage("Сервер уже был остановлен");
                 } else {
                     server.stopServer();
-                    for (Client client : server.getClientList()) {
-                        server.disconnectUser(client);
+                    Iterator<Client> clientIterator = server.getClientList().iterator();
+                    while (clientIterator.hasNext()){
+                        server.serverDown(clientIterator.next());
+                        clientIterator.remove();
                     }
-                    //TODO поправить удаление
                     showMessage("Сервер остановлен!");
                 }
             }
@@ -84,13 +90,12 @@ public class ServerWindow extends JFrame implements ServerView {
         log.append(text + "\n");
     }
 
-    @Override
-    public void stopServer() {
-
-    }
-
-    @Override
-    public void startServer() {
-
+    public void showAllClients() {
+        log.append("Текущий список клиентов: " + "\n");
+        List<Client> clients = server.getClientList();
+        for (Client client : clients) {
+            log.append(client.getName()+"\n");
+        }
     }
 }
+

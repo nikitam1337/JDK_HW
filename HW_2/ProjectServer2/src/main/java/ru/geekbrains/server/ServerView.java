@@ -4,7 +4,4 @@ public interface ServerView {
 
     void showMessage(String text);
 
-    void stopServer();
-    void startServer();
-
 }

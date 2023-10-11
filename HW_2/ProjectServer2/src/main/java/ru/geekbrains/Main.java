@@ -12,5 +12,7 @@ public class Main {
 
         new ClientGUI(server);
         new ClientGUI(server);
+        new ClientGUI(server);
+
     }
 }

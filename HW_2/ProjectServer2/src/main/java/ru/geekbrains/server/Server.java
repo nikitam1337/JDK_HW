@@ -24,11 +24,9 @@ public class Server {
     }
 
     public void startServer(){
-//        serverView.startServer();
         work = true;
     }
     public void stopServer(){
-//        serverView.stopServer();
         work = false;
     }
     public boolean getStatusServer(){
@@ -46,14 +44,18 @@ public class Server {
         return true;
     }
 
+    // Метод удаления клиента из списка подключенных клиентов при закрытии окна клиента
     public void disconnectUser(Client client) {
-
-        // TODO Доделать метод отключения клиентов от сервера
         if (client != null) {
-            client.disconnect();
             clientList.remove(client);
             }
+    }
 
+    // Метод принудительного отключения всех пользователей при остановке сервера.
+    public void serverDown(Client client){
+        if (client != null) {
+            client.disconnectServerDown();
+        }
     }
 
 
