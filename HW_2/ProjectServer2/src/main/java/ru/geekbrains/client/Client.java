@@ -66,6 +66,10 @@ public class Client {
             printText("Вы были отключены от сервера!");
         }
     }
+    public void disconnectFromServer(){
+        clientView.disconnectFromServer();
+    }
+
 
 
     public String getName() {

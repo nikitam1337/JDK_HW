@@ -59,7 +59,7 @@ public class Server {
     // Метод принудительного отключения всех пользователей при остановке сервера.
     public void serverDown(Client client) {
         if (client != null) {
-            client.disconnectServerDown();
+            client.disconnectFromServer();
         }
     }
 

@@ -1,7 +1,6 @@
 package ru.geekbrains.client;
 
 import ru.geekbrains.server.Server;
-import ru.geekbrains.server.ServerWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,9 +41,10 @@ public class ClientGUI extends JFrame implements ClientView{
         appendLog(text);
     }
 
+    @Override
     public void disconnectFromServer() {
         hideHeaderPanel(true);
-        client.disconnect();
+        client.disconnectServerDown();
     }
 
     private void hideHeaderPanel(boolean visible){
