@@ -1,7 +1,8 @@
 package ru.geekbrains.server;
 
 import ru.geekbrains.client.Client;
-import ru.geekbrains.client.ClientGUI;
+import ru.geekbrains.server.repository.Repository;
+import ru.geekbrains.server.repository.Storage;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -11,6 +12,7 @@ import java.util.List;
 public class Server {
 
     private ServerView serverView;
+    private Repository repository;
     public static final String LOG_PATH = "src/main/java/ru/geekbrains/server/repository/log.txt";
 
     List<Client> clientList;
@@ -20,22 +22,25 @@ public class Server {
     public Server(ServerView serverView) {
         clientList = new ArrayList<>();
         this.serverView = serverView;
-
+        this.repository = new Storage(LOG_PATH);
     }
 
-    public void startServer(){
+    public void startServer() {
         work = true;
     }
-    public void stopServer(){
+
+    public void stopServer() {
         work = false;
     }
-    public boolean getStatusServer(){
+
+    public boolean getStatusServer() {
         return work;
     }
 
-    public List<Client> getClientList(){
+    public List<Client> getClientList() {
         return clientList;
     }
+
     public boolean connectUser(Client client) {
         if (!work) {
             return false;
@@ -48,19 +53,14 @@ public class Server {
     public void disconnectUser(Client client) {
         if (client != null) {
             clientList.remove(client);
-            }
-    }
-
-    // Метод принудительного отключения всех пользователей при остановке сервера.
-    public void serverDown(Client client){
-        if (client != null) {
-            client.disconnectServerDown();
         }
     }
 
-
-    public String getHistory() {
-        return readLog();
+    // Метод принудительного отключения всех пользователей при остановке сервера.
+    public void serverDown(Client client) {
+        if (client != null) {
+            client.disconnectServerDown();
+        }
     }
 
     public void sendMessage(String text) {
@@ -80,27 +80,15 @@ public class Server {
     }
 
     private void saveInLog(String text) {
-        try (FileWriter writer = new FileWriter(LOG_PATH, true)) {
-            writer.write(text);
-            writer.write("\n");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        repository.saveInLog(text);
     }
 
     private String readLog() {
-        StringBuilder stringBuilder = new StringBuilder();
-        try (FileReader reader = new FileReader(LOG_PATH);) {
-            int c;
-            while ((c = reader.read()) != -1) {
-                stringBuilder.append((char) c);
-            }
-            stringBuilder.delete(stringBuilder.length() - 1, stringBuilder.length());
-            return stringBuilder.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        return repository.readLog();
+    }
+
+    public String getHistory() {
+        return repository.getHistory();
     }
 
 
