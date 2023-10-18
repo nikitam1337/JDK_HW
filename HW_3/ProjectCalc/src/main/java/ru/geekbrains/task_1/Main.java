@@ -1,6 +1,5 @@
 package ru.geekbrains.task_1;
 
-
 public class Main {
     public static void main(String[] args) {
         Double resultSum = Calculator.sum(15, 3.2);
