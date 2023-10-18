@@ -5,8 +5,7 @@ package ru.geekbrains.task_1;
         Параметры этих методов –  два числа разного типа (но необязательно разного между собой),
         над которыми должна быть произведена операция.
  */
-
-public class calculator {
+public class Calculator {
 
     /**
      *
