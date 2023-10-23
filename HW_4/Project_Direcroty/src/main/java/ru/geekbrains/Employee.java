@@ -6,7 +6,7 @@ public class Employee {
     private String name;
     private int workExperience;
 
-    public void Employee(int serviceNumber, int phoneNumber, String name, int workExperience) {
+    public Employee(int serviceNumber, int phoneNumber, String name, int workExperience) {
         this.name = name;
         this.workExperience = workExperience;
         this.phoneNumber = phoneNumber;
@@ -43,5 +43,16 @@ public class Employee {
 
     public void setWorkExperience(int workExperience) {
         this.workExperience = workExperience;
+    }
+
+    @Override
+    public String toString() {
+        return "\n" +
+                "{" +
+                "Табельный номер = " + serviceNumber +
+                ", Номер телефона = " + phoneNumber +
+                ", Имя = '" + name + '\'' +
+                ", Стаж = " + workExperience +
+                '}';
     }
 }
